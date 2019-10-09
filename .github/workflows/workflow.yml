@@ -1,12 +1,36 @@
 # File: .github/workflows/workflow.yml
 
-on: 
-  create
+on: [push, create, pull_request]
 
-name: Branch or Tag creation should trigger this 
+name: Multipurpose pipeline
 
 jobs:
-  build-and-deploy:
+  - job: build_and_test
+    runs-on: ubuntu-latest
+    steps:
+    - run: | 
+        echo Build Completed
+        echo Test Completed
+        
+  - job: deploy_test
+    dependsOn: build_and_test
+    condition: eq(${{ github.ref }}, 'refs/tags/test')
+    runs-on: ubuntu-latest
+    steps:
+     - run: |
+        echo ${{ github.ref }}
+
+  - job: deploy_staging
+    dependsOn: build_and_test
+    condition: eq(${{ github.ref }}, 'refs/tags/stage')
+    runs-on: ubuntu-latest
+    steps:
+     - run: |
+        echo ${{ github.ref }}
+
+  - job: deploy_prod
+    dependsOn: build_and_test
+    condition: eq(${{ github.ref }}, 'refs/tags/prod')
     runs-on: ubuntu-latest
     steps:
      - run: |
