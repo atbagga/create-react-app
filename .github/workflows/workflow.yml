@@ -1,18 +1,13 @@
 # File: .github/workflows/workflow.yml
 
-on: [push]
+on: 
+  create
 
-name: AzureLoginSample
+name: Branch or Tag creation should trigger this 
 
 jobs:
-
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    
-    - uses: azure/actions/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
-    - run: |
-        az account list
+     - run: |
+        echo $ { GITHUB_REF }
