@@ -11,14 +11,14 @@ jobs:
     - run: | 
         echo Build Completed
         echo Test Completed
-        
+         
   deploy_test:
     needs: build_and_test
-    if: github.event_name == 'create' && github.ref ==  'refs/tags/test'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
      - run: |
-        echo ${{ github.ref }}
+        echo "We will deploy branch :"  ${{ github.ref }}
 
   deploy_staging:
     needs: build_and_test
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
      - run: |
-        echo ${{ github.ref }}
+        echo  "We will deploy commit :" ${{ github.ref }}
 
   deploy_prod:
     needs: build_and_test
@@ -34,4 +34,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
      - run: |
-        echo ${{ github.ref }}
+        echo  "We will deploy commit :" ${{ github.ref }}
