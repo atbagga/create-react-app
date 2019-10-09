@@ -22,7 +22,7 @@ jobs:
 
   deploy_staging:
     needs: build_and_test
-    if:  github.ref ==  'refs/tags/stage'
+    if: github.event_name == 'create' &&  github.ref ==  'refs/tags/stage'
     runs-on: ubuntu-latest
     steps:
      - run: |
@@ -30,7 +30,7 @@ jobs:
 
   deploy_prod:
     needs: build_and_test
-    if: github.ref ==  'refs/tags/prod'
+    if: github.event_name == 'create' &&  github.ref ==  'refs/tags/prod'
     runs-on: ubuntu-latest
     steps:
      - run: |
