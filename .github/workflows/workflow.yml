@@ -2,35 +2,35 @@
 
 on: [push, create, pull_request]
 
-name: Multipurpose pipeline
+name: CI/CD pipeline
 
 jobs:
-  - job: build_and_test
+  build_and_test:
     runs-on: ubuntu-latest
     steps:
     - run: | 
         echo Build Completed
         echo Test Completed
         
-  - job: deploy_test
-    dependsOn: build_and_test
-    condition: eq(${{ github.ref }}, 'refs/tags/test')
+  deploy_test:
+    needs: build_and_test
+    if: ${{ github.ref }} ==  'refs/tags/test'
     runs-on: ubuntu-latest
     steps:
      - run: |
         echo ${{ github.ref }}
 
-  - job: deploy_staging
-    dependsOn: build_and_test
-    condition: eq(${{ github.ref }}, 'refs/tags/stage')
+  deploy_staging:
+    needs: build_and_test
+    if: ${{ github.ref }} ==  'refs/tags/stage'
     runs-on: ubuntu-latest
     steps:
      - run: |
         echo ${{ github.ref }}
 
-  - job: deploy_prod
-    dependsOn: build_and_test
-    condition: eq(${{ github.ref }}, 'refs/tags/prod')
+  deploy_prod:
+    needs: build_and_test
+    if: ${{ github.ref }} ==  'refs/tags/prod'
     runs-on: ubuntu-latest
     steps:
      - run: |
