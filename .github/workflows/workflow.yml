@@ -2,9 +2,6 @@ on:
   push:
     branches:
      - master
-  create:
-     - refs/tags/stage.v*
-     - refs/tags/prod.v*
   pull_request:
 
 name: CI/CD pipeline
