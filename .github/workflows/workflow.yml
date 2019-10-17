@@ -1,4 +1,8 @@
-on: [push, create, pull_request]
+on: 
+  push:
+    branches:
+     - master
+  pull_request:
 
 name: CI/CD pipeline
 
