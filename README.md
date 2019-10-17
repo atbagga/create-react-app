@@ -18,4 +18,4 @@ Once initialized, you can deploy the React example with just a single command:
 $ now
 ```
 
-testing a new change via PR
+testing a new change via PR 123
